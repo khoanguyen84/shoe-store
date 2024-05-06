@@ -20,7 +20,7 @@ function Product() {
                             <FaStar color="yellow" />
                         </div>
                         <div className="fs-10">
-                            ({123} reviewer)
+                            ({123} reviews)
                         </div>
                     </div>
                     <div className="d-flex align-items-center justify-content-between">
