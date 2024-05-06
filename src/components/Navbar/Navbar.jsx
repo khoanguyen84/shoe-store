@@ -6,7 +6,7 @@ function Navbar() {
     return (
         <div className="container d-flex align-items-center border-bottom py-2">
             <div className="d-flex align-items-center" style={{ minWidth: "180px" }}>
-                <Link to={"/"} className="logo">
+                <Link to={"/"} className="logo fw-bolder">
                     <FaCartPlus size={22} className="me-2" /> Shoe Store
                 </Link>
             </div>
