@@ -4,11 +4,14 @@ import './index.css';
 import App from './App';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import { BrowserRouter } from 'react-router-dom';
+import ShoeProvider from './context/shoe-context';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <ShoeProvider>
+        <App />
+      </ShoeProvider>
     </BrowserRouter>
   </React.StrictMode>
 );

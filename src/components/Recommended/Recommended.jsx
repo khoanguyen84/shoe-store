@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ShoeContext } from "../../context/shoe-context";
+import { setRecommendedAction } from "../../reducer/actions";
 
-const recommended = [
+const recommendedList = [
     {
         value: 'All',
         name: 'All Products'
@@ -23,19 +25,21 @@ const recommended = [
     }
 ]
 function Recommended() {
+    const { state: { filters: { recommended } }, dispatch } = useContext(ShoeContext)
     return (
         <div className="py-2 d-flex flex-column justify-content-center">
             <h5>Recommended</h5>
             <div className="form-group">
                 {
-                    recommended.map(recmd => (
+                    recommendedList.map(recmd => (
                         <button key={recmd.value}
                             className={
                                 `btn btn-sm btn-outline-secondary me-1
-                                    ${recmd.value === 'All' ? 'active' : ''}
+                                    ${recmd.value === recommended ? 'active' : ''}
                                 `
                             }
                             type="button"
+                            onClick={() => dispatch(setRecommendedAction(recmd.value))}
                         >
                             {recmd.name}
                         </button>

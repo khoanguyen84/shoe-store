@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
+import { ShoeContext } from "../../context/shoe-context";
+import { setPriceAction } from "../../reducer/actions";
 
 const prices = [
     {
@@ -24,22 +26,24 @@ const prices = [
 
 ]
 function Price() {
+    const { state: { filters: { price: currentPrice } }, dispatch } = useContext(ShoeContext)
     return (
         <div className="py-2 d-flex flex-column justify-content-center">
             <h5>Price</h5>
             <div className="form-group">
                 {
-                    prices.map((price,index) => (
-                        <div key={price} className="form-check py-1">
+                    prices.map((price, index) => (
+                        <div key={price.value} className="form-check py-1">
                             <input className="form-check-input" type="radio" name="price"
                                 id={`price_${index}`}
                                 value={price.value}
                                 defaultChecked={price.name === 'All'}
+                                onChange={(e) => dispatch(setPriceAction(e.target.value))}
                             />
-                            <label 
+                            <label
                                 role="button"
                                 htmlFor={`price_${index}`}
-                                className={`form-check-label ${price.name === 'All' ? 'text-decoration-underline fw-bolder' : ''}`}
+                                className={`form-check-label ${price.value === currentPrice ? 'text-decoration-underline fw-bolder' : ''}`}
                             >
                                 {price.name}
                             </label>
