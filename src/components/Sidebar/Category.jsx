@@ -1,9 +1,14 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import filtersSlice from "../../slices/filters-slice";
+import { categorySelector } from './../../redux-toolkit/selector';
 
 const categories = [
     "All", "Sneakers", "Flats", "Sandals", "Heels"
 ]
 function Category() {
+    const dispatch = useDispatch()
+    const category = useSelector(categorySelector)
     return (
         <div className="py-2 d-flex flex-column justify-content-center">
             <h5>Category</h5>
@@ -15,11 +20,12 @@ function Category() {
                                 id={`cat_${index}`}
                                 value={cat}
                                 defaultChecked={cat === 'All'}
+                                onChange={() => dispatch(filtersSlice.actions.setCategory(cat))}
                             />
                             <label 
                                 htmlFor={`cat_${index}`}
                                 role="button"
-                                className={`form-check-label ${cat === 'All' ? 'text-decoration-underline fw-bolder' : ''}`}
+                                className={`form-check-label ${cat === category ? 'text-decoration-underline fw-bolder' : ''}`}
                             >
                                 {cat}
                             </label>

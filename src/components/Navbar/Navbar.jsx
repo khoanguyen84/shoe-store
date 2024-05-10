@@ -1,8 +1,11 @@
 import React from "react";
 import { FaCartPlus, FaSearch, FaShoppingCart, FaUser } from 'react-icons/fa'
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
+import filtersSlice from "../../slices/filters-slice";
 
 function Navbar() {
+    const dispatch = useDispatch()
     return (
         <div className="container d-flex align-items-center border-bottom py-2">
             <div className="d-flex align-items-center" style={{ minWidth: "180px" }}>
@@ -17,6 +20,7 @@ function Navbar() {
                         placeholder="Enter your search shoes"
                         className="form-control form-control-sm"
                         style={{ paddingRight: '25px' }}
+                        onInput={(e) => dispatch(filtersSlice.actions.setSearchText(e.target.value))}
                     />
                     <FaSearch size={15} style={{ marginLeft: '-25px', color: 'rgba(0,0,0,.2)' }} />
                 </form>
