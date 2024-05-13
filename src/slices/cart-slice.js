@@ -36,6 +36,7 @@ const cartSlice = createSlice({
                     amount: Number(action.payload.newPrice)
                 })
             }
+            //tính toán lại subtotal và total
             let subtotal = 0;
             for(let item of state.orderDetails) {
                 subtotal += Number(item.amount)
