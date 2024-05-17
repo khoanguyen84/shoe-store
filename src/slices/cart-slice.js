@@ -45,7 +45,7 @@ const cartSlice = createSlice({
             state.orderInfo.total = subtotal + state.orderInfo?.shippingFee
         },
         removeCartItem: (state, action) => {
-            state.orderDetails = state.orderDetails?.filter(item => item.id != action.payload.id)
+            state.orderDetails = state.orderDetails?.filter(item => item.id !== action.payload.id)
 
             let subtotal = 0;
             for(let item of state.orderDetails) {

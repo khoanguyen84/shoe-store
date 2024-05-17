@@ -22,18 +22,18 @@ export const remainProductListSelector = createSelector(
         if (searchText) {
             remainProductList = remainProductList.filter((item) => item.title.toLowerCase().includes(searchText.toLowerCase()))
         }
-        if (recommended != "All") {
+        if (recommended !== "All") {
             remainProductList = remainProductList.filter((item) => item.company === recommended)
         }
-        if (category != 'All') {
+        if (category !== 'All') {
             remainProductList = remainProductList.filter((item) => item.category === category)
         }
-        if (color != 'All') {
+        if (color !== 'All') {
             remainProductList = remainProductList.filter((item) => item.color === color)
         }
-        if (price != '0,0') {
+        if (price !== '0,0') {
             const [min, max] = price.split(',')
-            if (min != max) {
+            if (min !== max) {
                 remainProductList = remainProductList.filter((item) => Number(item.newPrice) >= Number(min) && Number(item.newPrice) < Number(max))
             }
             else {

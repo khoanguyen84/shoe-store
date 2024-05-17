@@ -9,7 +9,7 @@ function Products() {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(fetchProductListThunkAction())
-    }, [])
+    }, [dispatch])
     const remainProductList = useSelector(remainProductListSelector)
     return (
         <div className="py-2 d-flex flex-column justify-content-center">

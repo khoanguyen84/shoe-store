@@ -33,7 +33,9 @@ function Navbar() {
                             {cart.orderDetails?.length}
                         </span>
                     </Link>
-                    <FaUser size={20} role="button" className="ms-3"/>
+                    <Link to={'/dashboard/order-list'}>
+                        <FaUser size={20} role="button" className="ms-3" />
+                    </Link>
                 </div>
             </div>
 
