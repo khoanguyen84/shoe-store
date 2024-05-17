@@ -48,6 +48,13 @@ input[type='search']::placeholder {
   filter: alpha(opacity=20)
 }
 
+.product-image-sm {
+  width: 20%;
+  margin-right: 4px;
+  padding: 0px 5px;
+  filter: alpha(opacity=20)
+}
+
 .btn-remove {
   width: 20px;
   height: 20px;

@@ -27,12 +27,17 @@ function Navbar() {
                     <FaSearch size={15} style={{ marginLeft: '-25px', color: 'rgba(0,0,0,.2)' }} />
                 </form>
                 <div className="">
-                    <Link to={'/cart'} className="position-relative">
-                        <FaShoppingCart size={20} className="me-2" role="button" />
-                        <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                            {cart.orderDetails?.length}
-                        </span>
-                    </Link>
+                    {
+                        cart.orderDetails?.length ? (
+                            <Link to={'/cart'} className="position-relative">
+                                <FaShoppingCart size={20} className="me-2" role="button" />
+                                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    {cart.orderDetails?.length}
+                                </span>
+                            </Link>
+                        ) : <FaShoppingCart size={20} className="me-2"/>
+                    }
+
                     <Link to={'/dashboard/order-list'}>
                         <FaUser size={20} role="button" className="ms-3" />
                     </Link>

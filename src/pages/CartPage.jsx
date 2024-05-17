@@ -1,8 +1,8 @@
 import React from "react";
 import MainLayout from "../layouts/MainLayout";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { cartSelector } from "../redux-toolkit/selector";
-import cartSlice from './../slices/cart-slice';
+import cartSlice, { checkoutThunkAction } from './../slices/cart-slice';
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 
@@ -20,12 +20,35 @@ function CartPage() {
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes",
             cancelButtonText: 'No'
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
                 dispatch(cartSlice.actions.removeCartItem(order))
                 toast.info(`${order.title} removed to cart`)
             }
-          });
+        });
+    }
+
+    const handleCheckout = () => {
+        Swal.fire({
+            title: "Are you sure checkout?",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Confirm",
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                let data = {
+                    ...cart,
+                    orderInfo: {
+                        ...cart.orderInfo,
+                        'status': 'order'
+                    }
+                }
+                dispatch(checkoutThunkAction(data))
+                toast.success('cart checkout')
+            }
+        });
     }
     return (
         <MainLayout>
@@ -68,9 +91,19 @@ function CartPage() {
                                             <td >
                                                 <div className="cart-quantity-wrap">
                                                     <div className="cart-quantity">
-                                                        <span>-</span>
+                                                        {
+                                                            order.quantity > 1 ? (
+                                                                <span
+                                                                    onClick={() => dispatch(cartSlice.actions.decrementQuantity(order))}
+                                                                >-</span>
+                                                            ) : (
+                                                                <span>-</span>
+                                                            )
+                                                        }
                                                         <span>{order.quantity}</span>
-                                                        <span>+</span>
+                                                        <span
+                                                            onClick={() => dispatch(cartSlice.actions.incrementQuantity(order))}
+                                                        >+</span>
                                                     </div>
                                                 </div>
 
@@ -102,7 +135,7 @@ function CartPage() {
                                 </div>
                                 <div className="d-flex align-items-center justify-content-between py-2">
                                     <span>Shipping</span>
-                                    <span className="fw-bolder">{`${orderInfo?.shippingFee ? orderInfo?.shippingFee : 'Free'}`}</span>
+                                    <span className="fw-bolder">{`${orderInfo?.shipping ? orderInfo?.shipping : 'Free'}`}</span>
                                 </div>
                             </div>
                             <div className="d-flex align-items-center justify-content-between border-top mt-2 py-2">
@@ -110,7 +143,9 @@ function CartPage() {
                                 <span className="fw-bolder fs-6">${orderInfo?.total}</span>
                             </div>
                         </div>
-                        <div className="py-3 bg-success mt-2 d-flex align-items-center justify-content-center text-white btn-checkout">
+                        <div className="py-3 bg-success mt-2 d-flex align-items-center justify-content-center text-white btn-checkout"
+                            onClick={handleCheckout}
+                        >
                             CHECKOUT
                         </div>
                     </div>
